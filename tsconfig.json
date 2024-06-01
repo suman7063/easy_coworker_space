@@ -25,6 +25,12 @@
     ]
   },
   "include": [
-    "src"
-  ]
+    "src",
+    "postcss.config.js"
+  ],
+  "paths": {
+    "*": [
+      "src/*"
+    ]
+  }
 }
