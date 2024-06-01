@@ -40,7 +40,7 @@ const Banner = ({ movie }: { movie: any }) => {
         </div>
       ) : (
         <div
-          className="relative h-[500px] bg-cover bg-center text-white flex flex-col justify-center p-8"
+          className="relative h-[70vh] bg-cover bg-center md:bg-top text-white flex flex-col justify-center px-4 py-8 mb-3"
           style={{
             backgroundImage: `url("https://image.tmdb.org/t/p/original/${backdrop_path}")`,
           }}

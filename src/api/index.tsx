@@ -23,12 +23,6 @@ export const fetchGenres = async () => {
 };
 
 export const fetchBannerMovieData = async () => {
-  // const response = await axios.get(`${BASE_URL}/movie/popular`, {
-  //   params: {
-  //     api_key: API_KEY,
-  //   },
-  // });
-  // return response.data.results;
   try {
     const urls = [
       `${BASE_URL}/movie/popular`,
