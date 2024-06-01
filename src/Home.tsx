@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { fetchMovies, fetchBannerMovieData } from "./api/index";
+import { fetchBannerMovieData } from "./api/index";
+
 import MovieList from "./components/MovieList";
 import SearchBar from "./components/SearchBar";
 import Filters from "./components/Filters";
@@ -7,6 +8,8 @@ import Pagination from "./components/Pagination";
 import Banner from "./components/Banner";
 import MovieCarousel from "./components/MovieCarousel";
 import { convertToTitleCase } from "./utils";
+import HeaderNavbar from "./components/HeaderNav";
+import Search from "./components/Search";
 
 const HomePage = () => {
   const [movies, setMovies] = useState({
@@ -36,6 +39,7 @@ const HomePage = () => {
   }, []);
   return (
     <div>
+      <HeaderNavbar />
       {bannerMovie && <Banner movie={bannerMovie} />}
       {Object.entries(movies).map(([title, movieList]) => (
         <div key={title}>
@@ -47,6 +51,7 @@ const HomePage = () => {
           </div>
         </div>
       ))}
+      {/* <Search /> */}
       {/* <MovieCarousel movies={movies} /> */}
       {/* <SearchBar setQuery={setQuery} />
       <Filters />

@@ -16,3 +16,26 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-gradient-header {
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 10%, transparent);
+}
+.expandable-div {
+  width: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 2px 8px;
+}
+.expanded {
+  width: 250px;
+  animation: .3s slide-left;
+}
+@keyframes slide-left {
+  from {
+    width: 0px;
+  }
+  to {
+    width: 250px;
+  }
+}

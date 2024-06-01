@@ -1,13 +1,16 @@
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./Home";
-import Banner from "./components/Banner";
-import Header from "./components/Header";
+import Search from "./components/Search";
 
 function App() {
   return (
     <div className="App">
-      <HomePage />
-      {/* <Header />
-      <Banner /> */}
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/search/:id" element={<Search />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Movie } from "../types/movie";
 import MovieCard from "./MovieCard";
 import LeftArrow from "../assets/LeftArrow";
 import RightArrow from "../assets/RightArrow";
@@ -77,7 +76,7 @@ const MovieCarousel = ({ movies }: { movies: any }) => {
       >
         {movies.map((movie: any, index: number) => (
           <div key={movie.id} style={{ width: `${cardWidth}px` }}>
-            <MovieCard movie={movie} cardWidth={cardWidth} />
+            <MovieCard movie={movie} cardWidth={`${cardWidth}px`} />
           </div>
         ))}
       </div>
