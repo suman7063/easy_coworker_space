@@ -45,4 +45,4 @@ export const language = [
 ];
 export const availabilities = ["Stream", "Free", "Ads", "Rent", "Buy"];
 
-export const navItem = ["popular", "topRated", "upcoming", "now-playing"];
+export const navItem = ["popular", "top_rated", "upcoming", "now_playing"];

@@ -84,7 +84,7 @@ const Search = () => {
     <>
       <HeaderNavbar scrollYValue={scrollYValue} />
       <div
-        className={`block lg:flex relative top-8 md:top-20 max-w-[1400px] m-auto px-4 md:px-16 pb-8 md:pb:0 ${
+        className={`block lg:flex relative top-12 md:top-20 max-w-[1400px] m-auto px-4 md:px-16 pb-8 md:pb:0 ${
           openFilterMenu ? "h-[100vh]" : ""
         }`}
       >
@@ -188,7 +188,7 @@ const Search = () => {
               : `w-full md:w-10/12 lg:w-9/12 lg:pl-4 mx-auto`
           }
         >
-          <div className="hidden md:block mt-5 lg:mt-0">
+          <div className="mt-5 lg:mt-0">
             <p className="text-lg font-normal text-white mb-4">
               {totalResults} Result Found
             </p>
