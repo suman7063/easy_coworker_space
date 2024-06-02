@@ -81,7 +81,7 @@ const HeaderNavbar = ({ scrollYValue }: { scrollYValue: number }) => {
       <nav className="w-full md:hidden  px-0">
         <div className="flex flex-wrap items-center justify-between  xl:px-0 py-2 mx-auto">
           <div className="flex items-center">
-            <h1 className="text-lg ml-4 font-bold italic">Click Film</h1>
+            <h1 className="text-lg ml-2 font-bold italic">Click Film</h1>
           </div>
           <div className="flex items-center h-[40px]">
             {expanded ? (
