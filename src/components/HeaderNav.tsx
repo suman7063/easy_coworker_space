@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { navItem, convertToTitleCase } from "./utils";
 import Search from "../assets/SearchIcon";
 import ToggelBtn from "../assets/ToggelBtn";
@@ -7,13 +7,17 @@ const Common = ({
   expanded,
   setExpanded,
   setMobileMenuOpen,
+  setPage,
 }: {
   expanded: boolean;
   setExpanded: any;
   setMobileMenuOpen: any;
+  setPage: any;
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [inpValue, setInpValue] = useState("");
+  const isSearchPath = location.pathname.includes("search");
 
   return (
     <>
@@ -30,16 +34,18 @@ const Common = ({
               value={inpValue}
               onChange={(e) => setInpValue(e.target.value)}
             />
-            <button
-              onClick={() => {
-                setExpanded(false);
-                navigate(`/search/${inpValue}`);
-              }}
-              type="button"
-              className="text-white bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-gradient-to-br shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg p-4 "
-            >
-              <Search />
-            </button>
+            {/*  */}
+            <Link to={`/search/${inpValue}`}>
+              <button
+                onClick={() => {
+                  setExpanded(false);
+                }}
+                type="button"
+                className="text-white bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-gradient-to-br shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg p-4 "
+              >
+                <Search />
+              </button>
+            </Link>
           </div>
         ) : (
           <button onClick={() => setExpanded(!expanded)}>
@@ -64,7 +70,13 @@ const Common = ({
     </>
   );
 };
-const HeaderNavbar = ({ scrollYValue }: { scrollYValue: number }) => {
+const HeaderNavbar = ({
+  scrollYValue,
+  setPage,
+}: {
+  scrollYValue: number;
+  setPage?: any;
+}) => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
@@ -80,7 +92,12 @@ const HeaderNavbar = ({ scrollYValue }: { scrollYValue: number }) => {
     >
       <nav className="w-full md:hidden  px-0">
         <div className="flex flex-wrap items-center justify-between  xl:px-0 py-2 mx-auto">
-          <div className="flex items-center">
+          <div
+            className="flex items-center cursor-pointer"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
             <h1 className="text-lg ml-2 font-bold italic">Click Film</h1>
           </div>
           <div className="flex items-center h-[40px]">
@@ -131,6 +148,7 @@ const HeaderNavbar = ({ scrollYValue }: { scrollYValue: number }) => {
                 setExpanded={setExpanded}
                 expanded={expanded}
                 setMobileMenuOpen={setMobileMenuOpen}
+                setPage={setPage}
               />
             </ul>
           </div>
@@ -138,7 +156,14 @@ const HeaderNavbar = ({ scrollYValue }: { scrollYValue: number }) => {
       </nav>
       <nav className="w-full hidden md:block px-4 md:px-16">
         <div className="flex flex-wrap items-center justify-between  xl:px-0 py-5  mx-auto">
-          <h1 className="text-3xl font-bold italic">Click Film</h1>
+          <h1
+            className="text-3xl font-bold italic cursor-pointer"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Click Film
+          </h1>
           <ToggelBtn
             setMobileMenuOpen={setMobileMenuOpen}
             isMobileMenuOpen={isMobileMenuOpen}
@@ -156,6 +181,7 @@ const HeaderNavbar = ({ scrollYValue }: { scrollYValue: number }) => {
                 setExpanded={setExpanded}
                 expanded={expanded}
                 setMobileMenuOpen={setMobileMenuOpen}
+                setPage={setPage}
               />
             </ul>
           </div>
