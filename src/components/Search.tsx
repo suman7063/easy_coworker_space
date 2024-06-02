@@ -10,7 +10,7 @@ import {
   fetchMoviesByFilter,
 } from "../api";
 import MovieCard from "./MovieCard";
-import { language, availabilities } from "./utils";
+import { availabilities } from "./utils";
 import {
   FilterListWithCheckbox,
   FilterListWithTag,

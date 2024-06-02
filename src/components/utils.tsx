@@ -35,14 +35,6 @@ export const convertToTitleCase = (input: string) => {
     .map((word: any) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
     .join(" "); // Join words with a space
 };
-export const language = [
-  "English",
-  "French",
-  "German",
-  "Korean",
-  "Hindi",
-  "Turkish",
-];
 export const availabilities = ["stream", "free", "ads", "rent", "buy"];
 
 export const navItem = ["popular", "top_rated", "upcoming", "now_playing"];

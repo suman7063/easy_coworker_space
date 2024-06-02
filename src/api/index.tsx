@@ -19,8 +19,6 @@ export const fetchMoviesByFilter = async (filterValues: {
     params: {
       api_key: API_KEY,
       with_genres: filterValues.genres.toString(),
-      with_original_language: "en",
-      region: "US",
       with_watch_monetization_types: filterValues.availabilities.join("|"),
     },
   });
