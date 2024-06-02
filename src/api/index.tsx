@@ -12,7 +12,6 @@ export const fetchMoviesByCategory = async (query: any) => {
 };
 
 export const fetchMoviesByFilter = async (filterValues: {
-  language: string;
   availabilities: any;
   genres: any;
 }) => {

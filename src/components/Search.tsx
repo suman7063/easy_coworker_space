@@ -10,7 +10,6 @@ import {
   fetchMoviesByFilter,
 } from "../api";
 import MovieCard from "./MovieCard";
-import FilterItem from "./FilterItem";
 import { language, availabilities } from "./utils";
 import {
   FilterListWithCheckbox,
@@ -36,7 +35,6 @@ const Search = () => {
   const { id } = useParams();
   const isSearchPath = location.pathname.includes("search");
   const [filterValues, setFilterValues] = useState({
-    language: "",
     availabilities: [],
     genres: [],
   });
@@ -151,7 +149,6 @@ const Search = () => {
                   onClick={() => {
                     setOpenFilterMenu(!openFilterMenu);
                     setFilterValues({
-                      language: "",
                       availabilities: [],
                       genres: [],
                     });
@@ -161,15 +158,6 @@ const Search = () => {
                 </p>
               </div>
               <div className="h-[80vh] md:h-[75vh] lg:h-full overflow-auto">
-                {/* <div className="p-4 bg-white rounded border mt-4w-full mt-4">
-                  <FilterItem
-                    items={language}
-                    title="Language"
-                    setFilterValues={setFilterValues}
-                    filterValues={filterValues}
-                    keyValue="language"
-                  />
-                </div> */}
                 <div className="p-4 bg-white rounded border mt-4w-full mt-4">
                   <FilterListWithCheckbox
                     items={availabilities}

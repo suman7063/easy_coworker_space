@@ -11,7 +11,6 @@ export const FilterListWithTag = ({
   title: string;
   setFilterValues: any;
   filterValues: {
-    language: string;
     availabilities: any;
     genres: any;
   };
@@ -67,8 +66,8 @@ export const FilterListWithCheckbox = ({
   title: string;
   setFilterValues: any;
   filterValues: {
-    language: string;
     availabilities: any;
+    genres: any;
   };
   keyValue: keyof { availabilities: string };
 }) => {
