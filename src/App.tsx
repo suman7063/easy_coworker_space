@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HomePage from "./Home";
+import HomePage from "./components/Home";
 import Search from "./components/Search";
 
 function App() {
@@ -8,6 +8,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/movies/:id" element={<Search />} />
           <Route path="/search/:id" element={<Search />} />
         </Routes>
       </Router>

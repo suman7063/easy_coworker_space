@@ -44,3 +44,5 @@ export const language = [
   "Turkish",
 ];
 export const availabilities = ["Stream", "Free", "Ads", "Rent", "Buy"];
+
+export const navItem = ["popular", "topRated", "upcoming", "now-playing"];

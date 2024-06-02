@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { formatDate, truncate } from "../utils";
+import { formatDate, truncate } from "./utils";
 import Calender from "../assets/Calender";
 
 const MovieCard = ({ movie, cardWidth }: { movie: any; cardWidth: string }) => {
@@ -12,7 +12,6 @@ const MovieCard = ({ movie, cardWidth }: { movie: any; cardWidth: string }) => {
     };
   }, [movie]);
   const { title, name, original_name, backdrop_path, release_date, id } = movie;
-  console.log(movie, "movie");
   return (
     <>
       <a

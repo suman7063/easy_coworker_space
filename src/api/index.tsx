@@ -1,17 +1,32 @@
-// src/services/movieService.js
 import axios from "axios";
-
 const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
-export const fetchMoviesByFilter = async (query: any, page = 1) => {
+export const fetchMoviesByFilter = async (query: any) => {
+  const response = await axios.get(`${BASE_URL}/movie/${query}`, {
+    params: {
+      api_key: API_KEY,
+    },
+  });
+  return response.data;
+};
+
+export const fetchMoviesBySearch = async (
+  query: any,
+  page: number,
+  language: any
+) => {
   const response = await axios.get(`${BASE_URL}/search/movie`, {
     params: {
       api_key: API_KEY,
       query,
+      page,
+      language,
     },
   });
-  return response.data;
+  const results = response.data.results;
+  const total_results = response.data.total_results;
+  return { results: results, total_results: total_results };
 };
 
 export const fetchGenres = async () => {

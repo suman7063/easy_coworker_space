@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { truncate } from "../utils";
+import { truncate } from "./utils";
 
 const Banner = ({ movie }: { movie: any }) => {
   const [loading, setLoading] = useState(true);
