@@ -43,6 +43,6 @@ export const language = [
   "Hindi",
   "Turkish",
 ];
-export const availabilities = ["Stream", "Free", "Ads", "Rent", "Buy"];
+export const availabilities = ["stream", "free", "ads", "rent", "buy"];
 
 export const navItem = ["popular", "top_rated", "upcoming", "now_playing"];

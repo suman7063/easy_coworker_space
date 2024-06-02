@@ -3,7 +3,12 @@ import { useParams, useLocation } from "react-router-dom";
 import "../style/search.css";
 import FilterIcon from "../assets/FilterIcon";
 import HeaderNavbar from "./HeaderNav";
-import { fetchMoviesBySearch, fetchGenres, fetchMoviesByFilter } from "../api";
+import {
+  fetchMoviesBySearch,
+  fetchGenres,
+  fetchMoviesByCategory,
+  fetchMoviesByFilter,
+} from "../api";
 import MovieCard from "./MovieCard";
 import FilterItem from "./FilterItem";
 import { language, availabilities } from "./utils";
@@ -38,17 +43,21 @@ const Search = () => {
   const [moviesData, setMoviesData] = useState<Item[]>([]);
   const [genresData, setGenresData] = useState([]);
 
-  const getMovieDetails = async () => {
+  const getMovieDetails = async (isFilter?: boolean) => {
     setLoading(true);
     let movie: any;
     if (isSearchPath) {
-      movie = await fetchMoviesBySearch(id, page, filterValues.language);
+      movie = await fetchMoviesBySearch(id, page);
+    } else if (isFilter) {
+      movie = await fetchMoviesByFilter(filterValues);
     } else {
-      movie = await fetchMoviesByFilter(id);
+      movie = await fetchMoviesByCategory(id);
     }
+
     setMoviesData((prevMovies) => [...prevMovies, ...movie.results]);
     setTotalResults(movie.total_results);
     setLoading(false);
+    setOpenFilterMenu(false);
   };
 
   const fetchGenresDetails = async () => {
@@ -63,7 +72,7 @@ const Search = () => {
   //  Handle infinite Scroll
   useEffect(() => {
     getMovieDetails();
-  }, [id, page, filterValues]);
+  }, [id, page]);
 
   const handleScroll = () => {
     if (loading) return;
@@ -80,6 +89,22 @@ const Search = () => {
     };
   }, [loading]);
 
+  const filterMenu = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        filterMenu.current &&
+        !filterMenu.current.contains(event.target as Node)
+      ) {
+        setOpenFilterMenu(false);
+      }
+    };
+    // if click outside then open search closed
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
   return (
     <>
       <HeaderNavbar scrollYValue={scrollYValue} />
@@ -109,11 +134,20 @@ const Search = () => {
                   ? `w-[100%] pt-11 pb-4 z-50 px-2 md:w-[400px] h-[93vh] text-center overflow-hidden fixed bottom-0 left-0 rounded-t-lg bg-gray-100 animate-slideUp animated`
                   : "lg:w-1/4 lg:mt-0 lg:py-0 hidden lg:block"
               }
+              ref={filterMenu}
             >
               <div className="h-[40px] bg-gray-200 justify-between px-4 items-center rounded flex w-full">
-                <p className="text-black text-md">Filter </p>
+                <button
+                  onClick={() => {
+                    getMovieDetails(true);
+                  }}
+                  type="button"
+                  className="text-sm text-white bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-gradient-to-br shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg px-8 py-1"
+                >
+                  Filter
+                </button>
                 <p
-                  className="text-black text-sm cursor-pointer lg:hidden"
+                  className="text-black text-sm cursor-pointer "
                   onClick={() => {
                     setOpenFilterMenu(!openFilterMenu);
                     setFilterValues({
@@ -125,21 +159,9 @@ const Search = () => {
                 >
                   Reset
                 </p>
-                <p
-                  className="text-black text-sm cursor-pointer hidden lg:block"
-                  onClick={() => {
-                    setFilterValues({
-                      language: "",
-                      availabilities: [],
-                      genres: [],
-                    });
-                  }}
-                >
-                  Reset
-                </p>
               </div>
-              <div className="h-[70vh] md:h-[75vh] lg:h-full overflow-auto">
-                <div className="p-4 bg-white rounded border mt-4w-full mt-4">
+              <div className="h-[80vh] md:h-[75vh] lg:h-full overflow-auto">
+                {/* <div className="p-4 bg-white rounded border mt-4w-full mt-4">
                   <FilterItem
                     items={language}
                     title="Language"
@@ -147,7 +169,7 @@ const Search = () => {
                     filterValues={filterValues}
                     keyValue="language"
                   />
-                </div>
+                </div> */}
                 <div className="p-4 bg-white rounded border mt-4w-full mt-4">
                   <FilterListWithCheckbox
                     items={availabilities}
@@ -167,16 +189,6 @@ const Search = () => {
                   />
                 </div>
               </div>
-
-              <button
-                onClick={() => {
-                  setOpenFilterMenu(!openFilterMenu);
-                }}
-                type="button"
-                className="text-white bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-gradient-to-br shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2 text-center mt-0 md:mt-4 w-[90%] max-w-[500px] absolute bottom-6 left-[5%] lg:hidden"
-              >
-                Search
-              </button>
             </div>
           </>
         )}
@@ -188,7 +200,11 @@ const Search = () => {
               : `w-full md:w-10/12 lg:w-9/12 lg:pl-4 mx-auto`
           }
         >
-          <div className="mt-5 lg:mt-0">
+          <div
+            className={
+              isSearchPath ? `mt-5 lg:mt-0` : `hidden lg:block mt-5 lg:mt-0`
+            }
+          >
             <p className="text-lg font-normal text-white mb-4">
               {totalResults} Result Found
             </p>
@@ -196,8 +212,8 @@ const Search = () => {
           <div
             className={
               isSearchPath
-                ? `grid grid-cols-2  sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-4 md:mt-0`
-                : `grid grid-cols-2  sm:grid-cols-3 lg:grid-cols-3 gap-4 mt-8 md:mt-0`
+                ? `grid grid-cols-2  sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-4`
+                : `grid grid-cols-2  sm:grid-cols-3 lg:grid-cols-3 gap-4 mt-8 lg:mt-4`
             }
           >
             {moviesData.map((movie: any, index: number) => (
