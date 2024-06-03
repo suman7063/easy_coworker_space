@@ -131,7 +131,6 @@ const Search = () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
-  console.log(moviesData, "moviesmovies");
   return (
     <>
       <HeaderNavbar scrollYValue={scrollYValue} setPage={setPage} />
@@ -169,8 +168,6 @@ const Search = () => {
                 <div className="h-[40px] bg-gray-200 justify-between px-4 items-center rounded flex w-full">
                   <button
                     onClick={() => {
-                      //   getMovieDetails(true);
-
                       if (page === 1) {
                         setReload(true);
                       } else {
@@ -185,7 +182,7 @@ const Search = () => {
                   <p
                     className="text-black text-sm cursor-pointer "
                     onClick={() => {
-                      setOpenFilterMenu(!openFilterMenu);
+                      setOpenFilterMenu(false);
                       setFilterValues({
                         availabilities: [],
                         genres: [],

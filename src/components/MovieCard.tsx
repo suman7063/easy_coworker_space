@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import { formatDate, truncate } from "./utils";
 import Calender from "../assets/Calender";
+import FavouriteIcon from "../assets/FavouriteIcon";
+import SolidFavouriteIcon from "../assets/SolidFavouriteIcon";
 
 const MovieCard = ({ movie, cardWidth }: { movie: any; cardWidth: string }) => {
   const [loading, setLoading] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const favoriteMovies = JSON.parse(localStorage.getItem("favorites") || "[]");
   useEffect(() => {
     const image = new Image();
     image.src = `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`;
@@ -11,6 +15,24 @@ const MovieCard = ({ movie, cardWidth }: { movie: any; cardWidth: string }) => {
       setLoading(false);
     };
   }, [movie]);
+
+  useEffect(() => {
+    setIsFavorite(favoriteMovies.some((fav: any) => fav.id === movie.id));
+  }, [favoriteMovies, movie.id]);
+
+  const toggleFavorite = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    event.preventDefault();
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    let newFavorites;
+    if (isFavorite) {
+      newFavorites = favorites.filter((fav: any) => fav.id !== movie.id);
+    } else {
+      newFavorites = [...favorites, movie];
+    }
+    localStorage.setItem("favorites", JSON.stringify(newFavorites));
+    setIsFavorite(!isFavorite);
+  };
   const { title, name, original_name, backdrop_path, release_date, id } = movie;
   return (
     <>
@@ -26,6 +48,12 @@ const MovieCard = ({ movie, cardWidth }: { movie: any; cardWidth: string }) => {
         target="_blank"
         rel="noreferrer"
       >
+        <div
+          className="absolute top-0 right-0 z-40 cursor-pointer"
+          onClick={toggleFavorite}
+        >
+          {isFavorite ? <SolidFavouriteIcon /> : <FavouriteIcon />}
+        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent rounded-lg" />
         <div className="relative z-10">
           <h1
