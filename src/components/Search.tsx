@@ -212,12 +212,12 @@ const Search = () => {
             <div
               className={
                 isSearchPath
-                  ? `grid grid-cols-2  sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-4`
-                  : `grid grid-cols-2  sm:grid-cols-3 lg:grid-cols-3 gap-4 mt-8 lg:mt-4`
+                  ? `grid grid-cols-2  sm:grid-cols-3  md:grid-cols-4 lg:grid-cols-4 gap-4 mt-4`
+                  : `grid grid-cols-2  sm:grid-cols-3  md:grid-cols-4 lg:grid-cols-3 gap-4 mt-8 lg:mt-4`
               }
             >
               {moviesData.map((movie: any, index: number) => (
-                <MovieCard movie={movie} cardWidth="100%" key={index} />
+                <MovieCard movie={movie} />
               ))}
             </div>
           </div>

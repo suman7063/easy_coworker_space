@@ -4,7 +4,13 @@ import Calender from "../assets/Calender";
 import FavouriteIcon from "../assets/FavouriteIcon";
 import SolidFavouriteIcon from "../assets/SolidFavouriteIcon";
 
-const MovieCard = ({ movie, cardWidth }: { movie: any; cardWidth: string }) => {
+const MovieCard = ({
+  movie,
+  isCarousel,
+}: {
+  movie: any;
+  isCarousel?: boolean;
+}) => {
   const [loading, setLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
   const favoriteMovies = JSON.parse(localStorage.getItem("favorites") || "[]");
@@ -37,11 +43,11 @@ const MovieCard = ({ movie, cardWidth }: { movie: any; cardWidth: string }) => {
   return (
     <>
       <a
-        className="relative bg-cover bg-center text-white flex flex-col justify-center py-8 px-4 rounded-lg"
+        className={`relative  ${
+          isCarousel ? "w-[150px] lg:w-[300px]" : "w-[100%]"
+        } h-[120px] lg:h-[200px] bg-cover bg-center text-white flex flex-col justify-center py-8 px-4 rounded-lg`}
         style={{
           backgroundImage: `url("https://image.tmdb.org/t/p/original/${backdrop_path}")`,
-          width: cardWidth,
-          height: "200px",
           backgroundColor: "#fff",
         }}
         href={`https://www.themoviedb.org/movie/${id}`}
@@ -55,14 +61,13 @@ const MovieCard = ({ movie, cardWidth }: { movie: any; cardWidth: string }) => {
           {isFavorite ? <SolidFavouriteIcon /> : <FavouriteIcon />}
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent rounded-lg" />
-        <div className="relative z-10">
+        <div className="relative z-10 top-[30px] left-[-10px] lg:left-0 lg:top-[60px]">
           <h1
-            className="text-sm font-bold absolute top-[45px] truncate "
-            style={{ width: cardWidth }}
+            className={`text-xs lg:text-sm font-normal lg:font-bold w-[150px] lg:w-[100%] truncate `}
           >
             {title || name || original_name}
           </h1>
-          <div className="flex absolute top-[70px] items-center">
+          <div className="flex items-center">
             <Calender />
             <h1 className="text-xs ml-2">{formatDate(release_date)}</h1>
           </div>

@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import MovieCard from "./MovieCard";
 import LeftArrow from "../assets/LeftArrow";
 import RightArrow from "../assets/RightArrow";
-
+import "../style/search.css";
 const MovieCarousel = ({ movies }: { movies: any }) => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [isAtStart, setIsAtStart] = useState(true);
@@ -71,12 +71,12 @@ const MovieCarousel = ({ movies }: { movies: any }) => {
       )}
       <div
         ref={carouselRef}
-        className="flex overflow-x-auto space-x-1 p-4 md:overflow-x-hidden"
+        className="flex overflow-x-auto space-x-1 p-4 md:overflow-x-hidden mobile-scroll-bar"
         style={{ scrollBehavior: "smooth", width: "100%" }}
       >
-        {movies.map((movie: any, index: number) => (
+        {movies.map((movie: any) => (
           <div key={movie.id} style={{ width: `${cardWidth}px` }}>
-            <MovieCard movie={movie} cardWidth={`${cardWidth}px`} />
+            <MovieCard movie={movie} isCarousel />
           </div>
         ))}
       </div>

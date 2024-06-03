@@ -14,3 +14,10 @@
       opacity: 1;
     }
   }
+  .mobile-scroll-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .mobile-scroll-bar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
