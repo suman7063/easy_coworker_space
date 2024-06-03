@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
-import { navItem, convertToTitleCase } from "./utils";
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { navItem, convertToTitleCase } from "../utils";
 import Search from "../assets/SearchIcon";
 import ToggelBtn from "../assets/ToggelBtn";
 const Common = ({
@@ -15,9 +15,7 @@ const Common = ({
   setPage: any;
 }) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const [inpValue, setInpValue] = useState("");
-  const isSearchPath = location.pathname.includes("search");
 
   return (
     <>
@@ -34,7 +32,6 @@ const Common = ({
               value={inpValue}
               onChange={(e) => setInpValue(e.target.value)}
             />
-            {/*  */}
             <Link to={`/search/${inpValue}`}>
               <button
                 onClick={() => {
@@ -113,17 +110,17 @@ const HeaderNavbar = ({
                   value={inpValue}
                   onChange={(e) => setInpValue(e.target.value)}
                 />
-                <button
-                  onClick={() => {
-                    setExpanded(false);
-                    setMobileMenuOpen(false);
-                    navigate(`/search/${inpValue}`);
-                  }}
-                  type="button"
-                  className="text-white bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-gradient-to-br shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg p-4 "
-                >
-                  <Search />
-                </button>
+                <Link to={`/search/${inpValue}`}>
+                  <button
+                    onClick={() => {
+                      setExpanded(false);
+                    }}
+                    type="button"
+                    className="text-white bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-gradient-to-br shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg p-4 "
+                  >
+                    <Search />
+                  </button>
+                </Link>
               </div>
             ) : (
               <button onClick={() => setExpanded(!expanded)}>

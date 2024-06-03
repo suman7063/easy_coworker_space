@@ -38,3 +38,13 @@ export const convertToTitleCase = (input: string) => {
 export const availabilities = ["stream", "free", "ads", "rent", "buy"];
 
 export const navItem = ["popular", "top_rated", "upcoming", "now_playing"];
+
+export interface Item {
+  // Add other properties based on your actual data structure
+  title: string;
+  name: string;
+  original_name: string;
+  backdrop_path: string;
+  release_date: string;
+  id: string;
+}

@@ -3,6 +3,7 @@ import { useParams, useLocation } from "react-router-dom";
 import "../style/search.css";
 import FilterIcon from "../assets/FilterIcon";
 import HeaderNavbar from "./HeaderNav";
+import LoadingIcon from "../assets/LoadingIcon";
 import {
   fetchMoviesBySearch,
   fetchGenres,
@@ -10,24 +11,14 @@ import {
   fetchMoviesByFilter,
 } from "../api";
 import MovieCard from "./MovieCard";
-import { availabilities } from "./utils";
-import {
-  FilterListWithCheckbox,
-  FilterListWithTag,
-} from "./SearchListCheckbox";
+import { Item } from "../utils";
+import { FilterListWithTag } from "./SearchListCheckbox";
 
-interface Item {
-  // Add other properties based on your actual data structure
-  title: string;
-  name: string;
-  original_name: string;
-  backdrop_path: string;
-  release_date: string;
-  id: string;
-}
 const Search = () => {
   const [reload, setReload] = useState(false);
-
+  //   const scrollPosRef = useRef(0); // Ref to store scroll position
+  const prevIdRef = useRef(null);
+  const filterMenu = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(false);
   const [scrollYValue, setScrollYValue] = useState(0);
   const [totalResults, setTotalResults] = useState(0);
@@ -42,8 +33,8 @@ const Search = () => {
   });
   const [moviesData, setMoviesData] = useState<Item[]>([]);
   const [genresData, setGenresData] = useState([]);
-  const prevIdRef = useRef(null);
-  const getMovieDetails = async (isFilter?: boolean) => {
+  const scrollPositionRef = useRef<number | null>(null);
+  const getMovieDetails = async () => {
     setLoading(true);
     let newArr: any = [];
     let movie: any;
@@ -62,29 +53,28 @@ const Search = () => {
     } else {
       newArr = [...moviesData, ...movie.results];
     }
-
-    // setMoviesData((prevMovies) => [...prevMovies, ...movie.results]);
-    // console.log(movie.results);
-    // newArr = [...moviesData, ...movie.results];
-    // console.log(newArr, "skskssskkskkkkkk");
     setMoviesData(newArr);
     setTotalResults(movie.total_results);
     setLoading(false);
     setOpenFilterMenu(false);
   };
-  console.log(moviesData, "newArrnewArr");
+
   const fetchGenresDetails = async () => {
     const genre = await fetchGenres();
     setGenresData(genre);
   };
 
-  //   useEffect(() => {
-  //     setReload(!reload);
-  //     console.log("setReload");
-  //   }, [id]);
+  const handleScroll = () => {
+    if (loading) return;
+    setScrollYValue(window.scrollY);
+    // Restore scroll position after data is loaded
+    scrollPositionRef.current = window.scrollY;
+    if (window.innerHeight + window.scrollY > document.body.offsetHeight) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
 
   useEffect(() => {
-    console.log("kdkekk");
     fetchGenresDetails();
   }, []);
 
@@ -100,14 +90,6 @@ const Search = () => {
     getMovieDetails();
   }, [page, id, reload]);
 
-  const handleScroll = () => {
-    if (loading) return;
-    setScrollYValue(window.scrollY);
-    if (window.innerHeight + window.scrollY > document.body.offsetHeight) {
-      setPage((prevPage) => prevPage + 1);
-    }
-  };
-
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -115,7 +97,6 @@ const Search = () => {
     };
   }, [handleScroll]);
 
-  const filterMenu = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (
@@ -131,11 +112,16 @@ const Search = () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+  useEffect(() => {
+    if (scrollPositionRef.current !== null) {
+      window.scrollTo(0, scrollPositionRef.current);
+    }
+  }, [loading]);
   return (
     <>
       <HeaderNavbar scrollYValue={scrollYValue} setPage={setPage} />
       {loading ? (
-        <>Loading......</>
+        <LoadingIcon />
       ) : (
         <div
           className={`block lg:flex relative top-12 md:top-20 max-w-[1400px] m-auto px-4 md:px-16 pb-8 md:pb:0 ${
@@ -193,15 +179,6 @@ const Search = () => {
                   </p>
                 </div>
                 <div className="h-[80vh] md:h-[75vh] lg:h-full overflow-auto">
-                  <div className="p-4 bg-white rounded border mt-4w-full mt-4">
-                    <FilterListWithCheckbox
-                      items={availabilities}
-                      title="Availabilities"
-                      setFilterValues={setFilterValues}
-                      filterValues={filterValues}
-                      keyValue="availabilities"
-                    />
-                  </div>
                   <div className="p-4 bg-white rounded border mt-4w-full mt-4">
                     <FilterListWithTag
                       items={genresData}

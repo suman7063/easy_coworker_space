@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { fetchBannerMovieData } from "../api/index";
 import Banner from "./Banner";
 import MovieCarousel from "./MovieCarousel";
-import { convertToTitleCase } from "./utils";
+import { convertToTitleCase } from "../utils";
 import HeaderNavbar from "./HeaderNav";
 
 const HomePage = () => {

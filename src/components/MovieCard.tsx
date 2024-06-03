@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { formatDate, truncate } from "./utils";
+import { formatDate, truncate } from "../utils";
 import Calender from "../assets/Calender";
 import FavouriteIcon from "../assets/FavouriteIcon";
 import SolidFavouriteIcon from "../assets/SolidFavouriteIcon";
