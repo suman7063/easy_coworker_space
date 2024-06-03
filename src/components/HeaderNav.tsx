@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { navItem, convertToTitleCase } from "../utils";
 import Search from "../assets/SearchIcon";
 import ToggelBtn from "../assets/ToggelBtn";
@@ -7,12 +7,10 @@ const Common = ({
   expanded,
   setExpanded,
   setMobileMenuOpen,
-  setPage,
 }: {
   expanded: boolean;
   setExpanded: any;
   setMobileMenuOpen: any;
-  setPage: any;
 }) => {
   const navigate = useNavigate();
   const [inpValue, setInpValue] = useState("");
@@ -28,21 +26,21 @@ const Common = ({
           >
             <input
               placeholder="Search for a movie"
-              className="ml-4 focus:outline-none text-black"
+              className="ml-4 focus:outline-none text-black w-full"
               value={inpValue}
               onChange={(e) => setInpValue(e.target.value)}
             />
-            <Link to={`/search/${inpValue}`}>
-              <button
-                onClick={() => {
-                  setExpanded(false);
-                }}
-                type="button"
-                className="text-white bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-gradient-to-br shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg p-4 "
-              >
-                <Search />
-              </button>
-            </Link>
+
+            <button
+              onClick={() => {
+                setExpanded(false);
+                if (inpValue.length > 2) navigate(`/search/${inpValue}`);
+              }}
+              type="button"
+              className="text-white bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-gradient-to-br shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg p-4 "
+            >
+              <Search />
+            </button>
           </div>
         ) : (
           <button onClick={() => setExpanded(!expanded)}>
@@ -58,7 +56,7 @@ const Common = ({
               setMobileMenuOpen(false);
               navigate(`/movies/${item}`);
             }}
-            className="cursor-pointer text-white"
+            className="cursor-pointer text-white py-4 text-lg md:py-0 md:text-md"
           >
             {convertToTitleCase(item)}
           </li>
@@ -106,21 +104,20 @@ const HeaderNavbar = ({
               >
                 <input
                   placeholder="Search for a movie"
-                  className="ml-4 focus:outline-none text-black"
+                  className="ml-4 focus:outline-none text-black w-full"
                   value={inpValue}
                   onChange={(e) => setInpValue(e.target.value)}
                 />
-                <Link to={`/search/${inpValue}`}>
-                  <button
-                    onClick={() => {
-                      setExpanded(false);
-                    }}
-                    type="button"
-                    className="text-white bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-gradient-to-br shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg p-4 "
-                  >
-                    <Search />
-                  </button>
-                </Link>
+                <button
+                  onClick={() => {
+                    setExpanded(false);
+                    if (inpValue.length > 2) navigate(`/search/${inpValue}`);
+                  }}
+                  type="button"
+                  className="text-white bg-gradient-to-r from-blue-400 via-blue-600 to-blue-700 hover:bg-gradient-to-br shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg py-4 px-3"
+                >
+                  <Search />
+                </button>
               </div>
             ) : (
               <button onClick={() => setExpanded(!expanded)}>
@@ -145,7 +142,6 @@ const HeaderNavbar = ({
                 setExpanded={setExpanded}
                 expanded={expanded}
                 setMobileMenuOpen={setMobileMenuOpen}
-                setPage={setPage}
               />
             </ul>
           </div>
@@ -178,7 +174,6 @@ const HeaderNavbar = ({
                 setExpanded={setExpanded}
                 expanded={expanded}
                 setMobileMenuOpen={setMobileMenuOpen}
-                setPage={setPage}
               />
             </ul>
           </div>

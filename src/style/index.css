@@ -25,7 +25,6 @@ code {
   overflow: hidden;
   display: flex;
   align-items: center;
-  padding: 2px 8px;
 }
 .expanded {
   width: 250px;

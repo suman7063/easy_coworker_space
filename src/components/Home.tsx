@@ -17,11 +17,7 @@ const HomePage = () => {
 
   const fetchMovieData = async () => {
     const movies = await fetchBannerMovieData();
-    setBannerMovie(
-      movies.popularMovies[
-        Math.floor(Math.random() * movies.popularMovies.length)
-      ]
-    );
+    setBannerMovie(movies.popularMovies[10]);
     setMovies({
       popularMovies: movies.popularMovies,
       topRatedMovies: movies.topRatedMovies,

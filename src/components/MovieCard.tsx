@@ -44,7 +44,7 @@ const MovieCard = ({
     <>
       <a
         className={`relative  ${
-          isCarousel ? "w-[150px] lg:w-[300px]" : "w-[100%]"
+          isCarousel ? "w-[160px] lg:w-[300px]" : "w-[100%]"
         } h-[120px] lg:h-[200px] bg-cover bg-center text-white flex flex-col justify-center py-8 px-4 rounded-lg`}
         style={{
           backgroundImage: `url("https://image.tmdb.org/t/p/original/${backdrop_path}")`,
