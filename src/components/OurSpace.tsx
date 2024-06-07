@@ -1,5 +1,5 @@
 import Card from "./Card";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { cardContext } from "../context/ManageState";
 const OurSpace = () => {
   const { value } = useContext(cardContext);
