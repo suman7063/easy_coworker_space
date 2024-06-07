@@ -3,7 +3,7 @@ import callIcon from "../assets/material-symbols_call.svg";
 const TopNavbar = () => {
   return (
     <header className="w-full px-[5%] z-50  mx-auto py-4 bg-white fixed">
-      <div className=" flex justify-between items-center mx-auto w-[90%]  max-w-[1200px] ">
+      <div className=" flex justify-between items-center">
         <img
           src={logo}
           alt="logo"

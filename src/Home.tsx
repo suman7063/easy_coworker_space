@@ -58,10 +58,13 @@ const Home = () => {
 
       <WhyChoose />
       <OurSpace />
-      {/* <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold max-w-[1200px] w-[90%] mx-auto mt-16">
+      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold max-w-[1200px] w-[90%] mx-auto mt-16">
         Download our app now
       </h1>
-      <BottomBanner /> */}
+      <BottomBanner />
+      <footer className="bg-[#222E34] w-full text-xs text-white text-center mt-8 md:mt-[250px] py-4 relative bottom-0">
+        © Copyright 2024. Bhive Private Limited
+      </footer>
     </div>
   );
 };

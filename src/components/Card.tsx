@@ -20,7 +20,7 @@ const Card = ({ item }: { item: any }) => {
       </div>
       <img
         src={getImageSrc()}
-        className="w-[296px] h-[175px] md:w-[346px] md:h-[202px] rounded-[6px] mt-2"
+        className="w-full h-[175px] md:h-[202px] rounded-[6px] mt-2"
       />
       <div className="flex justify-between mt-4">
         {item.is_day_pass_enabled && (
